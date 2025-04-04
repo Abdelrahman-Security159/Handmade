@@ -1,0 +1,145 @@
+{% extends '__owner_master.html' %}
+{% block title %}Owner Dashboard - Handmade Services{% endblock %}
+{% block content %}
+<!-- Main Content -->
+<main class="container mt-5">
+    <h2 class="text-center mb-4">Owner Dashboard</h2>
+
+    <!-- Services Management -->
+    <section class="mb-5">
+        <div class="card dashboard-card">
+            <div class="card-header dashboard-card-header">
+                <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-cogs mr-2"></i>Manage Services</span>
+                    <a href="{% url 'owner:create_service' %}" class="btn btn-primary">Add New Service</a>
+                </h5>
+            </div>
+            <div class="card-body">
+                <table id="services-table" class="display table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Service Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in services %}
+                        <tr>
+                            <td>{{ service.id }}</td>
+                            <td>{{ service.name }}</td>
+                            <td>{{ service.description }}</td>
+                            <td>${{ service.price }}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm btn-delete-service" 
+                                        data-service-id="{{ service.id }}"
+                                        data-service-name="{{ service.name }}"
+                                        data-toggle="modal" 
+                                        data-target="#deleteServiceModal">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Orders Management -->
+    <section>
+        <div class="card dashboard-card">
+            <div class="card-header dashboard-card-header">
+                <h5 class="mb-0 d-flex justify-content-between align-items-center">
+                    <span><i class="fas fa-shopping-cart mr-2"></i>Manage Orders</span>
+                </h5>
+            </div>
+            <div class="card-body">
+                <table id="orders-table" class="display table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer Name</th>
+                            <th>Service</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in shops %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.owner }}</td>
+                            <td>{{ order.name }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Delete Service Modal -->
+<div class="modal fade" id="deleteServiceModal" tabindex="-1" role="dialog" aria-labelledby="deleteServiceModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteServiceModalLabel">Confirm Service Deletion</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete the following service?</p>
+                <p><strong>Service Name:</strong> <span id="service-to-delete-name"></span></p>
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle mr-2"></i> This action cannot be undone!
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <form method="POST" action="" id="deleteServiceForm">
+                    {% csrf_token %}
+                    <input type="hidden" name="service_id" id="service-to-delete-id">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt mr-1"></i> Confirm Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{% block 'js' %}
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Initialize DataTables
+        $('#services-table, #orders-table').DataTable({
+            responsive: true,
+            paging: true,
+            searching: true,
+            info: false
+        });
+        // Handle delete button clicks
+        $(document).on('click', '.btn-delete-service', function() {
+            const serviceId = $(this).data('service-id');
+            const serviceName = $(this).data('service-name');
+            
+            // Populate the modal with service info
+            $('#service-to-delete-name').text(serviceName);
+            $('#service-to-delete-id').val(serviceId);
+            
+            // Set the form action URL
+            const deleteUrl = "{% url 'owner:delete_service' 0 %}".replace('0', serviceId);
+            $('#deleteServiceForm').attr('action', deleteUrl);
+        });
+
+        // No need for AJAX handling since we're doing normal form submission
+    });
+</script>
+{% endblock %}

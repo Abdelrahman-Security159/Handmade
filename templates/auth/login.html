@@ -1,0 +1,71 @@
+{% extends '__owner_master.html' %}
+
+{% block title %}Login - Handmade Services{% endblock %}
+
+{% block style %}
+<style>
+    /* Centered Form Styling */
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card h2 {
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
+    .form-group i {
+        color: #007bff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="container mt-5">
+    {% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <h2 class="text-center mb-4">Login</h2>
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope mr-2"></i>Email address</label>
+                        <input type="email" name="username" class="form-control" id="email" placeholder="Enter email" required>
+                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock mr-2"></i>Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+
+                    <!-- Remember Me Checkbox -->
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+
+                <!-- Additional Links -->
+                <div class="text-center mt-3">
+                    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+                    {% comment %} <p><a href="#">Forgot your password?</a></p> {% endcomment %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

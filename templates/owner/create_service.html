@@ -1,0 +1,34 @@
+{% extends '__owner_master.html' %}
+{% block title %}Create Service - Handmade Services{% endblock %}
+{% block content %}
+<!-- Main Content -->
+<main class="container mt-5">
+    <h2 class="text-center mb-4">Create New Service</h2>
+    <div class="card shadow-sm p-4">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name"><i class="fas fa-tag mr-2"></i>Service Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter service name" required>
+            </div>
+            <div class="form-group">
+                <label for="description"><i class="fas fa-align-left mr-2"></i>Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter service description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="price"><i class="fas fa-dollar-sign mr-2"></i>Price</label>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Enter price" required>
+            </div>
+            {% comment %} <div class="form-group">
+                <label for="shop"><i class="fas fa-store mr-2"></i>Shop</label>
+                <select class="form-control" id="shop" name="shop" required>
+                    {% for s in shops %}
+                    <option value="{{ s.id }}">{{ s.name }}</option>
+                    {% endfor %}
+                </select>
+            </div> {% endcomment %}
+            <button type="submit" class="btn btn-primary">Create Service</button>
+        </form>
+    </div>
+</main>
+{% endblock %}

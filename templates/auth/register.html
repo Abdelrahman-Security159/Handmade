@@ -1,0 +1,123 @@
+{% extends '__owner_master.html' %}
+
+{% block title %}Register - Handmade Services{% endblock %}
+
+{% block style %}
+<style>
+    /* Centered Form Styling */
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card h2 {
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
+    .form-group i {
+        color: #007bff;
+    }
+    .rules-list {
+        list-style-type: disc;
+        margin-left: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Main Content -->
+<main class="container mt-5">
+    {% if messages %}
+    <div class="alert alert-info">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+{% endif %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm p-4">
+                <h2 class="text-center mb-4">Register</h2>
+                <form method="POST" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    <!-- First Name Input -->
+                    <div class="form-group">
+                        <label for="first-name"><i class="fas fa-user mr-2"></i>First Name</label>
+                        <input type="text" name="first-name" class="form-control" id="first-name" placeholder="Enter first name" required>
+                    </div>
+
+                    <!-- Middle Name Input -->
+                    <div class="form-group">
+                        <label for="middle-name"><i class="fas fa-user mr-2"></i>Middle Name (Optional)</label>
+                        <input type="text" name="middle-name" class="form-control" id="middle-name" placeholder="Enter middle name">
+                    </div>
+
+                    <!-- Last Name Input -->
+                    <div class="form-group">
+                        <label for="last-name"><i class="fas fa-user mr-2"></i>Last Name</label>
+                        <input type="text" name="last-name" class="form-control" id="last-name" placeholder="Enter last name" required>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label for="email"><i class="fas fa-envelope mr-2"></i>Email address</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required>
+                        <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+
+                    <!-- Phone Number Input -->
+                    <div class="form-group">
+                        <label for="phone"><i class="fas fa-phone mr-2"></i>Phone Number</label>
+                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Enter phone number" required>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock mr-2"></i>Password</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+
+                    <!-- Confirm Password Input -->
+                    <div class="form-group">
+                        <label for="confirm-password"><i class="fas fa-lock mr-2"></i>Confirm Password</label>
+                        <input type="password" name="confirm-password" class="form-control" id="confirm-password" placeholder="Confirm password" required>
+                    </div>
+
+                    <!-- Role Selection -->
+                    <div class="form-group">
+                        <label for="role"><i class="fas fa-user-tag mr-2"></i>Role</label>
+                        <select class="form-control" name="role" id="role" required>
+                            <option value="" disabled selected>Select your role</option>
+                            <option value="user">User</option>
+                            <option value="owner">Owner</option>
+                        </select>
+                    </div>
+
+                    <!-- Rules Agreement -->
+                    <div class="form-group">
+                        <p>Please read and agree to the following rules:</p>
+                        <ul class="rules-list">
+                            <li>Respect all users and maintain a professional tone.</li>
+                            <li>Do not share personal information with unauthorized parties.</li>
+                            <li>Ensure timely communication and responsiveness.</li>
+                            <li>Follow all terms and conditions outlined in our policies.</li>
+                        </ul>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="agree-rules" required>
+                            <label class="form-check-label" for="agree-rules">I agree to the above rules</label>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </form>
+
+                <!-- Additional Links -->
+                <div class="text-center mt-3">
+                    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

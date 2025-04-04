@@ -1,0 +1,182 @@
+{% extends '__owner_master.html' %} 
+{% block 'title' %}Online Services for Handmade Items{% endblock %} 
+
+{% block 'style' %}
+<!-- Custom CSS -->
+<style>
+  /* Custom Styles */
+  .banner {
+    background: url("https://via.placeholder.com/1920x600") no-repeat center
+      center/cover;
+    color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+  .banner h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+  }
+  .banner p {
+    font-size: 1.5rem;
+  }
+  .cta {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+  }
+  .card-custom {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  .card-custom:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  .testimonial-card {
+    background-color: #f8f9fa;
+    border-left: 5px solid #007bff;
+  }
+  .footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+  }
+  .navbar-brand img {
+    border-radius: 50%;
+  }
+</style>
+{% endblock %} 
+
+{% block content %}
+<!-- Main Content -->
+<main>
+  <!-- Banner Section -->
+  <section
+    class="banner"
+    style="
+      background: url('https://www.alwatan.com.sa/uploads/images/2024/09/18/1086072.jpg')
+        no-repeat center center/cover;
+    "
+  >
+    <div class="container text-center py-5">
+      <div
+        class="row justify-content-center align-items-center"
+        style="min-height: 100vh"
+      >
+        <div class="col-lg-8">
+          <h1
+            class="display-4 font-weight-bold text-white"
+            style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7)"
+          >
+            Welcome to Handmade Services
+          </h1>
+          <p
+            class="lead text-white mb-4"
+            style="text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7)"
+          >
+            Discover unique handmade items and services tailored just for you.
+          </p>
+          <a href="{% url 'register' %}" class="btn btn-primary btn-lg"
+            >Get Started</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="container my-5">
+    <h2 class="text-center mb-5">Our Services</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card card-custom h-100 shadow-sm">
+          <div class="card-body text-center">
+            <i class="fas fa-paint-brush fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title">Custom Paintings</h5>
+            <p class="card-text">
+              Get personalized paintings crafted by our skilled artists.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-custom h-100 shadow-sm">
+          <div class="card-body text-center">
+            <i class="fas fa-candle-holder fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title">Handmade Candles</h5>
+            <p class="card-text">
+              Explore our range of scented and decorative handmade candles.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-custom h-100 shadow-sm">
+          <div class="card-body text-center">
+            <i class="fas fa-gift fa-3x mb-3 text-primary"></i>
+            <h5 class="card-title">Customized Gifts</h5>
+            <p class="card-text">
+              Find the perfect gift for any occasion, customized to your liking.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-5">
+    <div class="container">
+      <h2 class="text-center mb-5">What Our Customers Say</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card testimonial-card shadow-sm">
+            <div class="card-body">
+              <p class="card-text">
+                "Amazing service! The custom painting I ordered was exactly what
+                I wanted."
+              </p>
+              <p class="font-weight-bold">- Sarah L.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card testimonial-card shadow-sm">
+            <div class="card-body">
+              <p class="card-text">
+                "The handmade candles are beautiful and smell incredible. Highly
+                recommend!"
+              </p>
+              <p class="font-weight-bold">- John D.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card testimonial-card shadow-sm">
+            <div class="card-body">
+              <p class="card-text">
+                "Perfect gift for my friend's birthday. She absolutely loved
+                it!"
+              </p>
+              <p class="font-weight-bold">- Emily R.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="cta py-5 text-center text-white">
+    <div class="container">
+      <h2 class="mb-4">Ready to Explore Our Services?</h2>
+      <p class="lead">
+        Join thousands of happy customers and discover the joy of handmade
+        creations.
+      </p>
+      <a href="{% url 'register' %}" class="btn btn-light btn-lg"
+        >Sign Up Today</a
+      >
+    </div>
+  </section>
+</main>
+{% endblock %}
